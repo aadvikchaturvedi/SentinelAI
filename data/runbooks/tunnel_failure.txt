@@ -1,0 +1,38 @@
+RUNBOOK: Tunnel Failure
+ID: RB-002
+Severity: Critical
+
+DESCRIPTION:
+IPSec tunnel failure causes complete loss of connectivity between sites connected via that tunnel.
+This is a critical event requiring immediate action.
+
+SYMPTOMS:
+- Tunnel latency above 400ms or complete tunnel down
+- Tunnel packet loss above 20%
+- Site reporting complete loss of connectivity
+- BGP session drop on tunnel interface
+
+IMMEDIATE ACTIONS:
+1. Confirm tunnel status on both endpoints (source and destination router).
+2. Check IPSec rekey events in the last 10 minutes.
+3. Attempt tunnel reset from the hub side first.
+4. If reset fails, immediately activate backup tunnel.
+
+REROUTING STEPS:
+1. Identify backup tunnel for the failed segment.
+2. Activate backup tunnel and verify BGP session comes up.
+3. Confirm traffic is flowing through backup within 3 minutes.
+4. Notify affected site that failover is in progress.
+
+ESCALATION:
+- If backup tunnel also fails: escalate to Network Lead and ISP immediately.
+- If this affects Datacenter to Hub link: initiate Critical Incident process.
+
+RESOLUTION VERIFICATION:
+- Tunnel shows UP state for 5 consecutive minutes.
+- BGP session is established and routes are advertised.
+- Ping success rate above 99% for 3 minutes.
+
+HISTORICAL CONTEXT:
+Incident #67 (2024-06): Tunnel-C failure due to MTU mismatch. Resolved in 8 minutes.
+Root cause was ISP-side change. Backup Tunnel-F activated successfully.

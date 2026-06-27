@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Air-Gapped NOC Copilot</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-left">
+      <span class="logo">⚡ NOC Copilot</span>
+      <span class="subtitle">Air-Gapped Predictive Intelligence</span>
+    </div>
+    <div class="header-right">
+      <span id="status-dot" class="dot green"></span>
+      <span id="status-text">System Online</span>
+      <span id="clock"></span>
+    </div>
+  </header>
+
+  <!-- MAIN GRID -->
+  <div class="grid">
+
+    <!-- LEFT COLUMN -->
+    <div class="col-left">
+
+      <!-- ACTIVE PREDICTIONS -->
+      <div class="card">
+        <div class="card-title">🔴 Active Predictions</div>
+        <div id="predictions-panel">
+          <div class="placeholder">Fetching predictions...</div>
+        </div>
+        <button class="btn btn-primary" onclick="runPredict()">▶ Run Prediction</button>
+      </div>
+
+      <!-- WORKER STATUS -->
+      <div class="card">
+        <div class="card-title">⚙️ Signal Worker Status</div>
+        <div id="worker-panel">
+          <div class="placeholder">Workers idle</div>
+        </div>
+      </div>
+
+      <!-- TELEMETRY -->
+      <div class="card">
+        <div class="card-title">📊 Live Telemetry</div>
+        <div id="telemetry-panel">
+          <div class="placeholder">Loading telemetry...</div>
+        </div>
+        <button class="btn btn-secondary" onclick="fetchTelemetry()">↻ Refresh</button>
+      </div>
+
+    </div>
+
+    <!-- MIDDLE COLUMN -->
+    <div class="col-mid">
+
+      <!-- NETWORK TOPOLOGY -->
+      <div class="card">
+        <div class="card-title">🌐 Network Topology</div>
+        <div id="topology-panel">
+          <div class="topo-grid" id="topo-grid"></div>
+        </div>
+      </div>
+
+      <!-- IMPACT ANALYSIS -->
+      <div class="card">
+        <div class="card-title">💥 Impact Analysis</div>
+        <div id="impact-panel">
+          <div class="placeholder">No active failure</div>
+        </div>
+      </div>
+
+      <!-- REROUTING -->
+      <div class="card">
+        <div class="card-title">🔀 Rerouting</div>
+        <div id="reroute-panel">
+          <div class="placeholder">No rerouting required</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="col-right">
+
+      <!-- COPILOT CHAT -->
+      <div class="card card-chat">
+        <div class="card-title">🤖 Copilot</div>
+        <div id="chat-messages"></div>
+        <div class="chat-input-row">
+          <input id="chat-input" type="text" placeholder="Ask the Copilot..." 
+                 onkeydown="if(event.key==='Enter') sendChat()" />
+          <button class="btn btn-primary" onclick="sendChat()">Send</button>
+        </div>
+        <div class="quick-questions">
+          <button class="btn btn-ghost" onclick="askQuick('What is likely to fail next?')">What will fail next?</button>
+          <button class="btn btn-ghost" onclick="askQuick('Why is this happening?')">Why is this?</button>
+          <button class="btn btn-ghost" onclick="askQuick('What should I do right now?')">What should I do?</button>
+        </div>
+      </div>
+
+      <!-- FAULT INJECTION -->
+      <div class="card">
+        <div class="card-title">🧪 Fault Injector</div>
+        <div class="fault-grid">
+          <button class="btn btn-danger" onclick="injectFault('congestion', 'Hub')">Inject Congestion (Hub)</button>
+          <button class="btn btn-danger" onclick="injectFault('tunnel_failure', 'Branch1')">Inject Tunnel Failure</button>
+          <button class="btn btn-danger" onclick="injectFault('bgp_flap', 'Hub')">Inject BGP Flap</button>
+          <button class="btn btn-danger" onclick="injectFault('high_cpu', 'Datacenter')">Inject High CPU</button>
+          <button class="btn btn-danger" onclick="injectFault('mpls_failure', 'Hub')">Inject MPLS Failure</button>
+          <button class="btn btn-success" onclick="clearAllFaults()">✅ Clear All Faults</button>
+        </div>
+        <div id="fault-status"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

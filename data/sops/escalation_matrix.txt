@@ -1,0 +1,32 @@
+SOP: Escalation Matrix
+ID: SOP-002
+
+PURPOSE: Define who to contact and when during network incidents.
+
+SEVERITY LEVELS:
+
+LOW (Confidence 70-79%, Single metric anomaly):
+  - Action: Monitor and log.
+  - Notify: Network Engineer on duty.
+  - Timeline: Resolve within 2 hours.
+
+MEDIUM (Confidence 80-89%, Multiple metric anomalies):
+  - Action: Begin investigation and prepare rerouting.
+  - Notify: Network Lead within 15 minutes.
+  - Timeline: Resolve within 1 hour.
+
+HIGH (Confidence 90-94%, Failure worker triggered):
+  - Action: Immediate rerouting.
+  - Notify: Network Lead immediately, NOC Manager within 10 minutes.
+  - Timeline: Resolve within 30 minutes.
+
+CRITICAL (Confidence 95%+, Multiple sites affected):
+  - Action: Emergency rerouting + parallel ISP contact.
+  - Notify: NOC Manager immediately, CTO within 15 minutes.
+  - Timeline: Resolve within 15 minutes or escalate to vendor.
+
+CONTACTS:
+  Network Engineer: ext. 2201
+  Network Lead: ext. 2202
+  NOC Manager: ext. 2200
+  ISP NOC: As per ISP contract

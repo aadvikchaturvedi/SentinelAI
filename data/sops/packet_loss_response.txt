@@ -1,0 +1,28 @@
+SOP: Packet Loss Response
+ID: SOP-001
+
+TRIGGER: Packet loss above 3% on any link.
+
+STEP 1: Classify the severity.
+  - 3-5%   → Medium. Monitor for 5 minutes before acting.
+  - 5-15%  → High. Begin rerouting immediately.
+  - 15%+   → Critical. Escalate and reroute simultaneously.
+
+STEP 2: Notify stakeholders.
+  - Medium  → Notify Network Team via internal ticketing.
+  - High    → Notify Network Lead within 5 minutes.
+  - Critical → Notify NOC Manager and all site managers immediately.
+
+STEP 3: Reroute traffic.
+  - Identify alternate tunnel from Graph Engine recommendation.
+  - Apply rerouting on hub router.
+  - Confirm traffic shift within 3 minutes.
+
+STEP 4: Root cause analysis.
+  - Check for physical errors on the interface.
+  - Check for upstream ISP issues.
+  - Check for QoS misconfiguration causing drops.
+
+STEP 5: Resolution.
+  - Restore original path only when packet loss is below 0.5% for 10 minutes.
+  - Document incident with timeline and resolution steps.

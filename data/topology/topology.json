@@ -1,0 +1,23 @@
+{
+  "nodes": [
+    {"id": "Datacenter", "type": "datacenter", "priority": "critical"},
+    {"id": "Hub",        "type": "hub",        "priority": "critical"},
+    {"id": "Branch1",   "type": "branch",     "priority": "high",   "apps": ["ERP", "Video", "Email"]},
+    {"id": "Branch2",   "type": "branch",     "priority": "high",   "apps": ["ERP", "File Transfer"]},
+    {"id": "Branch3",   "type": "branch",     "priority": "medium", "apps": ["Email", "File Transfer"]}
+  ],
+  "edges": [
+    {"source": "Datacenter", "target": "Hub",     "type": "MPLS",   "tunnel": "Tunnel-A", "bandwidth_mbps": 1000, "primary": true},
+    {"source": "Hub",        "target": "Branch1", "type": "SD-WAN", "tunnel": "Tunnel-B", "bandwidth_mbps": 100,  "primary": true},
+    {"source": "Hub",        "target": "Branch2", "type": "SD-WAN", "tunnel": "Tunnel-C", "bandwidth_mbps": 100,  "primary": true},
+    {"source": "Hub",        "target": "Branch3", "type": "SD-WAN", "tunnel": "Tunnel-D", "bandwidth_mbps": 50,   "primary": true},
+    {"source": "Datacenter", "target": "Branch1", "type": "MPLS",   "tunnel": "Tunnel-E", "bandwidth_mbps": 200,  "primary": false, "backup": true},
+    {"source": "Datacenter", "target": "Branch2", "type": "MPLS",   "tunnel": "Tunnel-F", "bandwidth_mbps": 200,  "primary": false, "backup": true}
+  ],
+  "applications": {
+    "ERP":           {"priority": "critical", "max_latency_ms": 50,  "max_packet_loss_pct": 0.5},
+    "Video":         {"priority": "high",     "max_latency_ms": 80,  "max_packet_loss_pct": 1.0},
+    "Email":         {"priority": "medium",   "max_latency_ms": 200, "max_packet_loss_pct": 2.0},
+    "File Transfer": {"priority": "low",      "max_latency_ms": 500, "max_packet_loss_pct": 5.0}
+  }
+}

@@ -1,0 +1,34 @@
+RUNBOOK: High CPU on Network Device
+ID: RB-004
+Severity: High
+
+DESCRIPTION:
+High CPU utilization on routers or SD-WAN controllers can cause packet forwarding delays,
+BGP/OSPF protocol timeouts, and in severe cases, device crashes.
+
+SYMPTOMS:
+- CPU utilization above 85% for more than 2 minutes
+- Increased latency on all interfaces of the affected device
+- OSPF or BGP hello timeouts
+- CLI access becoming slow or unresponsive
+
+IMMEDIATE ACTIONS:
+1. Identify the top CPU-consuming process using 'show processes cpu sorted'.
+2. If routing protocol process is high: check for route table explosion.
+3. If crypto process is high: check for tunnel rekey storms.
+4. If interrupt-driven process is high: check for microbursts or broadcast storms.
+
+RELIEF ACTIONS:
+1. Rate-limit management plane traffic (SNMP, Syslog) on the device.
+2. If BGP is causing high CPU: apply prefix-list filters to reduce route processing.
+3. If IPSec is causing high CPU: stagger tunnel rekey timers.
+4. Consider temporarily disabling non-critical features.
+
+ESCALATION:
+- CPU above 95% for more than 5 minutes: prepare for device replacement.
+- If device becomes unreachable: initiate emergency console access.
+
+RESOLUTION VERIFICATION:
+- CPU below 60% for 5 consecutive minutes.
+- All routing protocols in established state.
+- No OSPF/BGP neighbour drops in last 10 minutes.

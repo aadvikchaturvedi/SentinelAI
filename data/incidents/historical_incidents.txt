@@ -1,0 +1,49 @@
+INCIDENT: #42
+Date: 2024-03-15
+Type: MPLS Congestion
+Location: Hub
+Duration: 12 minutes
+Affected Sites: Branch1, Branch2
+Affected Apps: ERP, Video
+Root Cause: ISP traffic surge caused bandwidth saturation on primary MPLS link.
+Resolution: Rerouted traffic to Tunnel-B. Latency reduced by 40% within 8 minutes.
+Lesson: Pre-configure QoS policies to prioritize ERP traffic automatically.
+
+---
+
+INCIDENT: #67
+Date: 2024-06-02
+Type: Tunnel Failure
+Location: Branch1
+Duration: 8 minutes
+Affected Sites: Branch1
+Affected Apps: ERP, Video, Email
+Root Cause: MTU mismatch introduced by ISP maintenance window.
+Resolution: Activated backup Tunnel-E. ISP corrected MTU within 30 minutes.
+Lesson: Always validate MTU after ISP maintenance windows.
+
+---
+
+INCIDENT: #91
+Date: 2024-09-20
+Type: BGP Route Flapping
+Location: Hub
+Duration: 25 minutes
+Affected Sites: Branch2, Branch3
+Affected Apps: File Transfer, Email
+Root Cause: Misconfigured route policy on hub router after software upgrade.
+Resolution: Rolled back route policy. Applied route dampening.
+Lesson: Always test route policies in staging before applying to production hub.
+
+---
+
+INCIDENT: #103
+Date: 2024-11-08
+Type: High CPU
+Location: Datacenter
+Duration: 18 minutes
+Affected Sites: All branches (latency increase)
+Affected Apps: ERP, Video
+Root Cause: SNMP polling storm from monitoring server misconfiguration.
+Resolution: Rate-limited SNMP on datacenter router. CPU normalized in 5 minutes.
+Lesson: Apply management plane policing as standard config on all routers.

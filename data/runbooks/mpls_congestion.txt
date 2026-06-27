@@ -1,0 +1,41 @@
+RUNBOOK: MPLS Congestion
+ID: RB-001
+Severity: High
+
+DESCRIPTION:
+MPLS congestion occurs when traffic demand exceeds the available bandwidth on MPLS links,
+causing latency spikes, packet loss, and jitter affecting all applications running over the link.
+
+SYMPTOMS:
+- Latency above 80ms on primary MPLS links
+- Bandwidth utilization above 85%
+- Packet loss above 2%
+- Jitter above 20ms
+- User complaints about slow ERP and video call quality
+
+IMMEDIATE ACTIONS:
+1. Identify the congested MPLS segment from telemetry dashboard.
+2. Shift non-critical traffic (file transfers, email) to alternate tunnel immediately.
+3. Prioritize ERP and Video traffic using QoS policies.
+4. Enable traffic shaping on the congested interface.
+5. Notify affected site managers within 5 minutes.
+
+REROUTING STEPS:
+1. Check Tunnel-B availability and current utilization.
+2. If Tunnel-B is below 70% utilization, reroute primary ERP traffic to Tunnel-B.
+3. Monitor latency every 2 minutes after rerouting.
+4. If latency drops below 30ms within 10 minutes, rerouting was successful.
+
+ESCALATION:
+- If congestion persists beyond 20 minutes: escalate to Network Lead.
+- If ERP becomes unreachable: escalate to NOC Manager immediately.
+- If multiple sites affected: initiate Major Incident process.
+
+RESOLUTION VERIFICATION:
+- Latency below 30ms for 5 consecutive minutes.
+- Packet loss below 0.5%.
+- All application teams confirm normal operations.
+
+HISTORICAL CONTEXT:
+Incident #42 (2024-03): Hub congestion resolved in 12 minutes by rerouting to Tunnel-B.
+Latency reduced by 40% within 8 minutes of rerouting.

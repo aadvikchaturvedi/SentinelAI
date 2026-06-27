@@ -1,0 +1,33 @@
+RUNBOOK: BGP Route Instability
+ID: RB-003
+Severity: High
+
+DESCRIPTION:
+BGP route flapping causes repeated withdrawal and re-advertisement of routes, leading to
+intermittent connectivity and increased CPU load on routing devices.
+
+SYMPTOMS:
+- BGP event count above 10 in 5 minutes
+- Routes being withdrawn and re-advertised repeatedly
+- Increased CPU on hub and datacenter routers
+- Intermittent connectivity to specific sites
+
+IMMEDIATE ACTIONS:
+1. Check BGP neighbor state on all hub and datacenter routers.
+2. Identify which BGP sessions are flapping.
+3. Apply route dampening to suppress flapping routes temporarily.
+4. Check for interface errors or physical link issues on BGP peering links.
+
+STABILIZATION STEPS:
+1. Apply BGP route dampening with half-life of 5 minutes.
+2. Monitor BGP event count — should reduce to below 2 per minute within 10 minutes.
+3. Do NOT reset BGP sessions unless absolutely necessary (causes brief outage).
+
+ESCALATION:
+- If flapping involves upstream ISP BGP session: contact ISP NOC immediately.
+- If route table size increases abnormally: check for BGP route injection attack.
+
+RESOLUTION VERIFICATION:
+- BGP event count below 1 per 5 minutes for 10 consecutive minutes.
+- All expected routes present in routing table.
+- No route withdrawals in last 5 minutes.
